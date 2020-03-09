@@ -1,7 +1,11 @@
-from flask import Flask
+# run.py
 
-app = Flask(__name__)
+from app import manager
+from flask_script import Server
+import os
 
-@app.route('/')
-def index():
-    return '<h1>Deployed to Heroku !!</h1>'
+
+if __name__ == '__main__':
+    PORT = int(os.environ.get("PORT", 5000))
+    manager.add_command("runserver", Server(port=PORT))
+    manager.run()
